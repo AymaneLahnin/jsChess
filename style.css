@@ -1,0 +1,58 @@
+#chessBoard{
+    width: 480px;
+    height: 480px;
+    background-color: black;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.square{
+    height: 60px;
+    width: 60px;
+    position: relative;
+}
+
+.black{
+    background-color: rgb(138, 115, 115);
+}
+
+.white{
+    background-color: rgb(255, 253, 253);
+}
+
+.square svg{
+    height: 40px;
+    width: 40px;
+    margin: 10px;
+    position: relative;
+    z-index: -9;
+}
+
+path {
+    position: relative;
+    z-index: -10;
+}
+
+.piece {
+    position: relative;
+    z-index: 9;
+}
+.whitePiece{
+    fill: rgb(216, 176, 125);
+}
+
+.blackPiece{
+    fill: black;
+}
+
+body{
+    margin-left: 350px;
+}
+
+h1{
+    font-size: large;
+    background: linear-gradient(90deg, rgb(60, 57, 124) 0%, rgb(150, 150, 216) 35%, rgba(0,212,255,1) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
