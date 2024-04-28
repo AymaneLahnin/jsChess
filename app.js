@@ -1,6 +1,5 @@
 const gameBoard = document.querySelector("#chessBoard");
 const player = document.querySelector("#player");
-const info= document.querySelector("#infoDisplays");
 
 const width = 8;
 let playerGo = 'black'
@@ -77,20 +76,34 @@ function dragDrop(e){
   const taken = e.target.classList.contains('piece')
  const opponentGo = playerGo === 'white' ? 'black' : 'white'
  const takenByOpp = e.target.firstChild?.classList.contains(opponentGo)
-//  if(correctPiece){
-//   // if(takenByOpp && valid){
-//   //   e.target.parentNode.append(draggedPiece)
-//   //   e.target.remove()
-//   //changePlayer()
-//   // }
-  if(taken && !takenByOpp){
-    info.textContent="you can't play this move"
-    setTimeout(()=>info.textContent="",3000)
+ const info= document.querySelector("#infoDisplays");
+const valid = checkIfValid(e.target)
+ if(correctPiece){
+  if(takenByOpp && valid){
+    e.target.parentNode.append(draggedPiece)
+    e.target.remove()
+    changePlayer()
+    console.log("ssjdncsd")
     return
   }
- }
+  if(taken && !takenByOpp){
+    info.textContent="you can't play this move"
+    setTimeout(()=>info.textContent="",2000)
+    return
+  }
+ }}
 
 
+
+function checkIfValid(target){
+  const targetID=Number(target.getAttribute("square_id")) || Number(target.parentNode.getAttribute("square_id"))
+  const startId=Number(initialPosition)
+  const piece=draggedPiece.id
+  console.log('piece: ',piece)
+  console.log('startid: ',startId)
+  console.log('endDestination: ',targetID)
+
+}
 
 function changePlayer(){
   if(playerGo === 'black'){
