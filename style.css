@@ -47,11 +47,12 @@ path {
 
 body{
     margin-left: 350px;
+    background-color: rgb(6, 102, 102);
 }
 
 h1{
     font-size: large;
-    background: linear-gradient(90deg, rgb(60, 57, 124) 0%, rgb(150, 150, 216) 35%, rgba(0,212,255,1) 100%);
+    background: linear-gradient(90deg, rgb(217, 217, 226) 0%, rgb(150, 150, 216) 35%, rgb(164, 199, 206) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

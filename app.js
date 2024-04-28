@@ -72,24 +72,29 @@ function dragOver(e){
 function dragDrop(e){
   e.stopPropagation()
   const correctPiece=draggedPiece.firstChild.classList.contains(playerGo+"Piece")
-  
+  console.log(draggedPiece)
   const taken = e.target.classList.contains('piece')
  const opponentGo = playerGo === 'white' ? 'black' : 'white'
- const takenByOpp = e.target.firstChild?.classList.contains(opponentGo)
+ const takenByOpp = e.target.firstChild?.classList.contains(opponentGo+"Piece");
+ 
  const info= document.querySelector("#infoDisplays");
 const valid = checkIfValid(e.target)
  if(correctPiece){
+ 
   if(takenByOpp && valid){
-    e.target.parentNode.append(draggedPiece)
-    e.target.remove()
+    e.target.append(draggedPiece)
+    e.target.firstChild?.remove()
     changePlayer()
-    console.log("ssjdncsd")
     return
   }
   if(taken && !takenByOpp){
     info.textContent="you can't play this move"
     setTimeout(()=>info.textContent="",2000)
     return
+  }
+  if(!takenByOpp && valid){
+    e.target.append(draggedPiece)
+    changePlayer()
   }
  }}
 
@@ -102,6 +107,20 @@ function checkIfValid(target){
   console.log('piece: ',piece)
   console.log('startid: ',startId)
   console.log('endDestination: ',targetID)
+  switch(piece){
+    case "pawn":
+      const startRow=[8,9,10,11,12,13,14,15]
+      if(startRow.includes(startId)&& startId + width*2 === targetID ||
+      startId + width === targetID ||
+      startId + width - 1 === targetID && document.querySelector(`[square_id="${startId + width - 1}"]`).firstChild ||
+      startId + width + 1 === targetID && document.querySelector(`[square_id="${startId + width + 1}"]`).firstChild 
+
+    
+    ){
+        return true
+      }
+  }
+
 
 }
 
@@ -115,7 +134,6 @@ function changePlayer(){
     playerGo='black'
     player.textContent='black'
   }
-  console.log("ddsds")
 }
 
 
