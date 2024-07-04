@@ -58,7 +58,7 @@ allSquares.forEach( square => {
 })
 
 
-let initialPosition
+let initialPosition=-1;
 let draggedPiece
 function dragStart(e){
   initialPosition = e.target.parentNode.getAttribute('square_id')
@@ -72,9 +72,8 @@ function dragOver(e){
 function dragDrop(e){
   e.stopPropagation()
   const correctPiece=draggedPiece.firstChild.classList.contains(playerGo+"Piece")
-  console.log(draggedPiece)
+  const opponentGo = playerGo === 'white' ? 'black' : 'white'
   const taken = e.target.classList.contains('piece')
- const opponentGo = playerGo === 'white' ? 'black' : 'white'
  const takenByOpp = e.target.firstChild?.classList.contains(opponentGo+"Piece");
  
  const info= document.querySelector("#infoDisplays");
@@ -82,19 +81,23 @@ const valid = checkIfValid(e.target)
  if(correctPiece){
  
   if(takenByOpp && valid){
-    e.target.append(draggedPiece)
+    e.target.parentNode.append(draggedPiece)
+    console.log(initialPosition)
     e.target.firstChild?.remove()
+    console.log(initialPosition)
+    console.log("status:",valid)
     changePlayer()
     return
   }
   if(taken && !takenByOpp){
-    info.textContent="you can't play this move"
-    setTimeout(()=>info.textContent="",2000)
+    alert("you can't play this move");
+    setTimeout(()=>alert="",2000)
     return
   }
   if(!takenByOpp && valid){
     e.target.append(draggedPiece)
     changePlayer()
+
   }
  }}
 
@@ -103,6 +106,7 @@ const valid = checkIfValid(e.target)
 function checkIfValid(target){
   const targetID=Number(target.getAttribute("square_id")) || Number(target.parentNode.getAttribute("square_id"))
   const startId=Number(initialPosition)
+  console.log(startId)
   const piece=draggedPiece.id
   console.log('piece: ',piece)
   console.log('startid: ',startId)
@@ -115,11 +119,13 @@ function checkIfValid(target){
       startId + width - 1 === targetID && document.querySelector(`[square_id="${startId + width - 1}"]`).firstChild ||
       startId + width + 1 === targetID && document.querySelector(`[square_id="${startId + width + 1}"]`).firstChild 
 
-    
     ){
         return true
       }
+      break;
   }
+  return false
+  
 
 
 }
